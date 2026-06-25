@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "Tab Vibe",
+  "version": "1.0.0",
+  "description": "Every tab gets a fitting station - news turns cinematic, docs go heads-down, feeds get playful. Auto-matched, with pin or shuffle per site.",
+  "permissions": ["tabs", "storage", "offscreen", "scripting"],
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "action": {
+    "default_popup": "panel.html",
+    "default_title": "Tab Vibe",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["vibes.js", "sniffer.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
