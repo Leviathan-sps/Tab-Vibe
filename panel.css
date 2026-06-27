@@ -1,0 +1,188 @@
+/* tab vibe popup. light and a bit retro-radio: white paper with one sharp
+   vermilion accent. went away from the dark glassy player look on purpose. */
+
+:root {
+  --ink: #17191e;
+  --soft: #767b86;
+  --line: #e6e5e1;
+  --accent: #ff4a23;      /* radio-dial red-orange, kept sharp not muddy */
+  --accent-press: #e03d18;
+  --paper: #ffffff;
+  --panel: #fbfaf8;       /* barely-warm off white so cards read without a shadow */
+}
+
+* { box-sizing: border-box; }
+
+body {
+  width: 312px;
+  margin: 0;
+  padding: 14px 14px 16px;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.mark {
+  font-size: 22px;
+  line-height: 1;
+  color: var(--accent);
+  display: inline-block;
+  transform: rotate(-5deg); /* tilted a touch, reads hand-placed */
+}
+.brand { flex: 1; }
+.brand h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.brand small {
+  display: block;
+  font-size: 10px;
+  color: var(--soft);
+  letter-spacing: 0.04em;
+}
+
+/* on/off toggle — keep the pill, it's a real control shape */
+.toggle { position: relative; width: 40px; height: 22px; }
+.toggle input { display: none; }
+.knob {
+  position: absolute;
+  inset: 0;
+  background: #d8d7d2;
+  border-radius: 999px;
+  transition: background 0.18s;
+}
+.knob::before {
+  content: "";
+  position: absolute;
+  width: 16px; height: 16px;
+  left: 3px; top: 3px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25); /* a real knob shadow, not a glow */
+  transition: transform 0.18s;
+}
+.toggle input:checked + .knob { background: var(--accent); }
+.toggle input:checked + .knob::before { transform: translateX(18px); }
+
+/* now-playing card */
+.card {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 14px;
+  margin-bottom: 13px;
+  overflow: hidden;
+}
+.card.playing { border-color: var(--accent); }
+/* thin rule down the left while live, like a tuner mark */
+.card.playing::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--accent);
+}
+
+/* equalizer bars — flat when idle, bouncing when live */
+.eq {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 18px;
+  margin-bottom: 8px;
+}
+.eq i {
+  width: 4px;
+  height: 4px;
+  border-radius: 1px;
+  background: #cfceca;
+}
+/* uneven resting heights so it isn't a perfect machine grid */
+.eq i:nth-child(2) { height: 6px; }
+.eq i:nth-child(4) { height: 5px; }
+.card.playing .eq i {
+  background: var(--accent);
+  animation: bounce 0.9s ease-in-out infinite;
+}
+.card.playing .eq i:nth-child(2) { animation-delay: 0.15s; }
+.card.playing .eq i:nth-child(3) { animation-delay: 0.3s; }
+.card.playing .eq i:nth-child(4) { animation-delay: 0.45s; }
+.card.playing .eq i:nth-child(5) { animation-delay: 0.6s; }
+@keyframes bounce {
+  0%, 100% { height: 4px; }
+  50%      { height: 16px; }
+}
+
+.station { font-size: 17px; font-weight: 700; }
+.feel { font-size: 11px; color: var(--soft); margin-top: 1px; min-height: 13px; }
+.meta { font-size: 12px; color: var(--soft); margin-top: 7px; word-break: break-all; }
+.meta b { color: var(--accent); font-weight: 600; }
+
+.warn { margin-top: 7px; font-size: 12px; color: #b4631a; }
+.link {
+  background: none; border: none; padding: 0;
+  color: var(--accent); font: inherit; text-decoration: underline; cursor: pointer;
+}
+
+/* pick + shuffle */
+.pick { display: flex; gap: 8px; margin-bottom: 11px; }
+select {
+  flex: 1;
+  font: inherit;
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 8px 9px;
+}
+.ghost {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--accent);
+  font-size: 16px;
+  width: 40px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.ghost:hover { border-color: var(--accent); }
+.ghost:active { background: #fff4f1; }
+
+.line { display: flex; align-items: center; gap: 11px; margin-bottom: 12px; }
+.ico {
+  background: none; border: none; padding: 0;
+  color: #6c727c; font-size: 13px; cursor: pointer; letter-spacing: 1px;
+}
+.ico.muted { color: #bcbcb8; }
+input[type="range"] { flex: 1; accent-color: var(--accent); }
+
+.opt {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; color: #5a606b; cursor: pointer; margin-bottom: 10px;
+}
+.opt input { accent-color: var(--accent); }
+
+.all summary {
+  cursor: pointer; font-size: 12px; color: var(--soft); padding: 4px 0;
+}
+.all ul {
+  list-style: none; margin: 6px 0 0; padding: 0;
+  max-height: 152px; overflow-y: auto;
+}
+.all li {
+  display: flex; justify-content: space-between;
+  padding: 5px 2px; font-size: 13px;
+  border-bottom: 1px solid var(--line);
+}
+.all li .f { color: var(--soft); font-size: 11px; }
+.all li.live { color: var(--accent); font-weight: 600; }

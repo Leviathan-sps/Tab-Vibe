@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="panel.css" />
+    <title>Tab Vibe</title>
+  </head>
+  <body>
+    <header class="bar">
+      <span class="mark">≈</span>
+      <div class="brand">
+        <h1>Tab Vibe</h1>
+        <small>every tab, a vibe</small>
+      </div>
+      <label class="toggle" title="turn vibes on/off">
+        <input type="checkbox" id="on" />
+        <span class="knob"></span>
+      </label>
+    </header>
+
+    <!-- now playing for this tab -->
+    <section class="card" id="card">
+      <div class="eq" id="eq"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="station" id="station">—</div>
+      <div class="feel" id="feel"></div>
+      <div class="meta"><span id="host">…</span> · vibe <b id="vibe">…</b></div>
+      <div class="warn" id="warn" hidden>
+        autoplay blocked — <button id="kick" class="link">tap to start</button>
+      </div>
+    </section>
+
+    <!-- pick / shuffle a station for this site -->
+    <div class="pick">
+      <select id="pin"></select>
+      <button id="shuffle" class="ghost" title="random station">⤮</button>
+    </div>
+
+    <div class="line">
+      <button id="hush" class="ico" title="hush">▮▮</button>
+      <input type="range" id="level" min="0" max="100" value="50" />
+    </div>
+
+    <label class="opt">
+      <input type="checkbox" id="yield" />
+      step back when the tab makes its own sound
+    </label>
+
+    <details class="all">
+      <summary>all stations</summary>
+      <ul id="stations"></ul>
+    </details>
+
+    <script src="vibes.js"></script>
+    <script src="panel.js"></script>
+  </body>
+</html>
